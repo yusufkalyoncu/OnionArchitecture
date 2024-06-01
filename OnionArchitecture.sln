@@ -1,6 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture", "OnionArchitecture\OnionArchitecture.csproj", "{DA306BE4-1604-48F0-803D-94E8768621A7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0907DF54-A397-4437-B0D6-F7A2AC75050D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Domain", "Core\OnionArchitecture.Domain\OnionArchitecture.Domain.csproj", "{914A703E-ABBC-4BC8-AAF7-F87C93661BAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Application", "Core\OnionArchitecture.Application\OnionArchitecture.Application.csproj", "{7531634A-47D4-4567-B318-51EDBEA16F5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{AAD76DD9-B676-4976-A152-7F71F892673B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Infrastructure", "Infrastructure\OnionArchitecture.Infrastructure\OnionArchitecture.Infrastructure.csproj", "{9F0679CD-6F4F-4C9D-9FDE-0B60B6751959}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.Persistence", "Infrastructure\OnionArchitecture.Persistence\OnionArchitecture.Persistence.csproj", "{7A9DC2E9-DCFA-4BCF-B1E8-F495D6FC4E51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{0DA7ADC6-3000-4171-9DAF-84F8D835C213}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnionArchitecture.API", "Presentation\OnionArchitecture.API\OnionArchitecture.API.csproj", "{95DB427C-8BE2-4274-A763-D5CF74164CEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +22,32 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DA306BE4-1604-48F0-803D-94E8768621A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA306BE4-1604-48F0-803D-94E8768621A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA306BE4-1604-48F0-803D-94E8768621A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA306BE4-1604-48F0-803D-94E8768621A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{914A703E-ABBC-4BC8-AAF7-F87C93661BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{914A703E-ABBC-4BC8-AAF7-F87C93661BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{914A703E-ABBC-4BC8-AAF7-F87C93661BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{914A703E-ABBC-4BC8-AAF7-F87C93661BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7531634A-47D4-4567-B318-51EDBEA16F5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7531634A-47D4-4567-B318-51EDBEA16F5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7531634A-47D4-4567-B318-51EDBEA16F5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7531634A-47D4-4567-B318-51EDBEA16F5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F0679CD-6F4F-4C9D-9FDE-0B60B6751959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F0679CD-6F4F-4C9D-9FDE-0B60B6751959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F0679CD-6F4F-4C9D-9FDE-0B60B6751959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F0679CD-6F4F-4C9D-9FDE-0B60B6751959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9DC2E9-DCFA-4BCF-B1E8-F495D6FC4E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9DC2E9-DCFA-4BCF-B1E8-F495D6FC4E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9DC2E9-DCFA-4BCF-B1E8-F495D6FC4E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9DC2E9-DCFA-4BCF-B1E8-F495D6FC4E51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95DB427C-8BE2-4274-A763-D5CF74164CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95DB427C-8BE2-4274-A763-D5CF74164CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95DB427C-8BE2-4274-A763-D5CF74164CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95DB427C-8BE2-4274-A763-D5CF74164CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{914A703E-ABBC-4BC8-AAF7-F87C93661BAF} = {0907DF54-A397-4437-B0D6-F7A2AC75050D}
+		{7531634A-47D4-4567-B318-51EDBEA16F5D} = {0907DF54-A397-4437-B0D6-F7A2AC75050D}
+		{9F0679CD-6F4F-4C9D-9FDE-0B60B6751959} = {AAD76DD9-B676-4976-A152-7F71F892673B}
+		{7A9DC2E9-DCFA-4BCF-B1E8-F495D6FC4E51} = {AAD76DD9-B676-4976-A152-7F71F892673B}
+		{95DB427C-8BE2-4274-A763-D5CF74164CEF} = {0DA7ADC6-3000-4171-9DAF-84F8D835C213}
 	EndGlobalSection
 EndGlobal
