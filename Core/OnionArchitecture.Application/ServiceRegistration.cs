@@ -6,7 +6,7 @@ namespace OnionArchitecture.Application;
 
 public static class ServiceRegistration
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static void AddApplication(this IServiceCollection services)
     {
         var assembly = typeof(ServiceRegistration).Assembly;
         
@@ -16,7 +16,5 @@ public static class ServiceRegistration
             configuration.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
         });
         services.AddValidatorsFromAssembly(assembly);
-
-        return services;
     }
 }
