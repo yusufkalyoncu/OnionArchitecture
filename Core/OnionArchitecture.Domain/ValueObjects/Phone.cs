@@ -6,6 +6,7 @@ namespace OnionArchitecture.Domain.ValueObjects;
 
 public sealed class Phone : ValueObject
 {
+    private Phone(){}
     private Phone(string countryCode, string number)
     {
         CountryCode = countryCode;

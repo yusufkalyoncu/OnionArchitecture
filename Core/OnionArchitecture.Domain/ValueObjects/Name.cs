@@ -5,6 +5,7 @@ namespace OnionArchitecture.Domain.ValueObjects;
 
 public sealed class Name : ValueObject
 {
+    private Name(){}
     private Name(string firstName, string lastName)
     {
         FirstName = firstName;

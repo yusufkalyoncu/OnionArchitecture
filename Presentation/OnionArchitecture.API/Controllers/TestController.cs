@@ -1,17 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using OnionArchitecture.Application.Options;
 
 namespace OnionArchitecture.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TestController : Controller
+public class TestController : ControllerBase
 {
-    private readonly IConfiguration _configuration;
+    private readonly PostgreOptions _options;
+
+    public TestController(IOptions<PostgreOptions> options)
+    {
+        _options = options.Value;
+    }
+
     // GET
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var res = _configuration["Test"];
-        return View();
+        return Ok(_options);
     }
 }

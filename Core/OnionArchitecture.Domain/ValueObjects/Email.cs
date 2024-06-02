@@ -6,6 +6,7 @@ namespace OnionArchitecture.Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {
+    private Email(){}
     private Email(string value) => Value = value;
     public string Value { get;}
     public override IEnumerable<object> GetAtomicValues()

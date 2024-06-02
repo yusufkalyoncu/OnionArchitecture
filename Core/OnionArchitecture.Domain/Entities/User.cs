@@ -8,4 +8,5 @@ public sealed class User : Entity
     public Name Name { get; private set; }
     public Email Email { get; private set; }
     public Phone Phone { get; private set; }
+    public string Password { get; set; }
 }
