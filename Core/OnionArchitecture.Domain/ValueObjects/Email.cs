@@ -14,19 +14,19 @@ public sealed class Email : ValueObject
         yield return Value;
     }
 
-    public Result Create(string value)
+    public Result<Email> Create(string value)
     {
         if (string.IsNullOrEmpty(value))
         {
-            return Result.Failure(EmailErrors.EmailNullOrEmpty);
+            return Result<Email>.Failure(EmailErrors.EmailNullOrEmpty);
         }
         
         string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
         if (!Regex.IsMatch(value, pattern, RegexOptions.IgnoreCase))
         {
-            return Result.Failure(EmailErrors.InvalidFormat);
+            return Result<Email>.Failure(EmailErrors.InvalidFormat);
         }
 
-        return Result.Success<Email>(new(value));
+        return Result<Email>.Success(new(value));
     }
 }

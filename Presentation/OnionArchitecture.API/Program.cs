@@ -1,4 +1,3 @@
-using OnionArchitecture.API.Middlewares;
 using OnionArchitecture.Application;
 using OnionArchitecture.Infrastructure;
 using OnionArchitecture.Persistence;
@@ -29,6 +28,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseMiddleware<RequestLogContextMiddleware>();
+app.UseMiddleware<GlobalExceptionHandler>();
 app.MapControllers();
 app.Run();
