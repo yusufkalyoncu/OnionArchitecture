@@ -8,7 +8,7 @@ namespace OnionArchitecture.Application.Abstractions.Behaviors;
 internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse> 
     : IPipelineBehavior<TRequest,TResponse>
     where TRequest : class
-    where TResponse : Result
+    where TResponse : Result<TResponse>
 {
     private readonly ILogger<RequestLoggingPipelineBehavior<TRequest, TResponse>> _logger;
 

@@ -1,8 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace OnionArchitecture.Domain.Shared;
 
-public class Result
+public class Result<T>
 {
-    protected internal Result(bool isSuccess, Error? error)
+    protected internal Result(bool isSuccess, Error? error = null, T? data = default)
     {
         if (isSuccess && error != null)
         {
@@ -16,25 +18,14 @@ public class Result
         
         IsSuccess = isSuccess;
         Error = error;
+        Data = data;
     }
     public bool IsSuccess { get; }
-    public bool IsFailure => !IsSuccess;
     public Error? Error { get; }
-    public static Result Success() => new(true, null);
-    public static Result<T> Success<T>(T value) => new(value, true, null);
-    public static Result Failure(Error error) => new(false, error);
-    public static Result<T> Failure<T>(Error error) => new(default, false, error);
-    
-    public static Result Create(bool condition) => condition ? Success() : Failure(Error.ConditionNotMet);
-
-    public static Result<T> Create<T>(T? value) => value is not null ? Success(value) : Failure<T>(Error.NullValue);
-}
-public class Result<T> : Result
-{
-    private readonly T? _value;
-    protected internal Result(T? value, bool isSuccess, Error? error) : base(isSuccess, error)
-    {
-        _value = value;
-    }
-    public static implicit operator Result<T>(T? value) => Create(value);
+    public T? Data { get; set; }
+    [JsonIgnore]
+    public bool IsFailure => !IsSuccess;
+    public static Result<T> Success() => new(true);
+    public static Result<T> Success(T data) => new(true, null, data);
+    public static Result<T> Failure(Error error) => new(false, error);
 }

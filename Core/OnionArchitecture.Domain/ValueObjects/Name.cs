@@ -21,25 +21,25 @@ public sealed class Name : ValueObject
         yield return Value;
     }
 
-    public Result Create(string firstName, string lastName)
+    public Result<Name> Create(string firstName, string lastName)
     {
         if (string.IsNullOrEmpty(firstName))
         {
-            return Result.Failure(NameErrors.FirstNameNullOrEmpty);
+            return Result<Name>.Failure(NameErrors.FirstNameNullOrEmpty);
         }
         if (string.IsNullOrEmpty(lastName))
         {
-            return Result.Failure(NameErrors.LastNameNullOrEmpty);
+            return Result<Name>.Failure(NameErrors.LastNameNullOrEmpty);
         }
         if (firstName.Length < 2 || firstName.Length > 20)
         {
-            return Result.Failure(NameErrors.FirstNameLengthError);
+            return Result<Name>.Failure(NameErrors.FirstNameLengthError);
         }
         if (lastName.Length < 2 || firstName.Length > 20)
         {
-            return Result.Failure(NameErrors.LastNameLengthError);
+            return Result<Name>.Failure(NameErrors.LastNameLengthError);
         }
 
-        return Result.Success<Name>(new(firstName, lastName));
+        return Result<Name>.Success(new(firstName, lastName));
     }
 }

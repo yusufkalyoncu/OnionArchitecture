@@ -21,15 +21,15 @@ public sealed class Phone : ValueObject
         yield return Value;
     }
 
-    public Result Create(string countryCode, string number)
+    public Result<Phone> Create(string countryCode, string number)
     {
         if (string.IsNullOrEmpty(countryCode))
         {
-            return Result.Failure(PhoneErrors.CountryCodeNullOrEmpty);
+            return Result<Phone>.Failure(PhoneErrors.CountryCodeNullOrEmpty);
         }
         if (string.IsNullOrEmpty(number))
         {
-            return Result.Failure(PhoneErrors.NumberNullOrEmpty);
+            return Result<Phone>.Failure(PhoneErrors.NumberNullOrEmpty);
         }
         
         string notDigitPattern = @"\D";
@@ -41,13 +41,13 @@ public sealed class Phone : ValueObject
 
         if (!Regex.IsMatch(countryCode, countryCodePattern))
         {
-            return Result.Failure(PhoneErrors.InvalidCountryCode);
+            return Result<Phone>.Failure(PhoneErrors.InvalidCountryCode);
         }
         if (!Regex.IsMatch(number, numberPattern))
         {
-            return Result.Failure(PhoneErrors.InvalidCountryCode);
+            return Result<Phone>.Failure(PhoneErrors.InvalidCountryCode);
         }
 
-        return Result.Success<Phone>(new(countryCode, number));
+        return Result<Phone>.Success(new(countryCode, number));
     }
 }

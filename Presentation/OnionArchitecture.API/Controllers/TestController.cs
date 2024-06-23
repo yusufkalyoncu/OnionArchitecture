@@ -19,6 +19,6 @@ public class TestController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        return Ok(_options);
+        throw new InvalidOperationException();
     }
 }
