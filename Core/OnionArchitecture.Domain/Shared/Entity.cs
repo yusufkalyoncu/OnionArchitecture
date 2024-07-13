@@ -20,6 +20,11 @@ public abstract class Entity
         UpdatedDate = DateTime.UtcNow;
     }
 
+    public void SetCreatedDate()
+    {
+        CreatedDate = DateTime.UtcNow;
+    }
+
     public void Delete()
     {
         IsDeleted = true;

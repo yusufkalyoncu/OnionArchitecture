@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnionArchitecture.Domain.Entities;
-using OnionArchitecture.Domain.ValueObjects;
+using OnionArchitecture.Domain.Shared;
 using OnionArchitecture.Persistence.Configurations;
 
 namespace OnionArchitecture.Persistence.Contexts;
@@ -15,5 +15,24 @@ public class OnionArchitectureDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        var datas = ChangeTracker.Entries<Entity>();
+
+        foreach (var data in datas)
+        {
+            switch (data.State)
+            {
+                case EntityState.Added:
+                    data.Entity.SetCreatedDate();
+                    break;
+                case EntityState.Modified:
+                    data.Entity.Update();
+                    break;
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
     }
 }
