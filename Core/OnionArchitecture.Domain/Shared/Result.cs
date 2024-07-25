@@ -2,9 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace OnionArchitecture.Domain.Shared;
 
-public class Result<T>
+public class Result
 {
-    protected internal Result(bool isSuccess, Error? error = null, T? data = default)
+    protected internal Result(bool isSuccess, Error? error = null)
     {
         if (isSuccess && error != null)
         {
@@ -18,14 +18,22 @@ public class Result<T>
         
         IsSuccess = isSuccess;
         Error = error;
-        Data = data;
     }
     public bool IsSuccess { get; }
     public Error? Error { get; }
-    public T? Data { get; set; }
     [JsonIgnore]
     public bool IsFailure => !IsSuccess;
-    public static Result<T> Success() => new(true);
-    public static Result<T> Success(T data) => new(true, null, data);
-    public static Result<T> Failure(Error error) => new(false, error);
+    public static Result Success() => new(true);
+    public static Result Failure(Error error) => new(false, error);
+}
+
+public class Result<T> : Result
+{
+    protected internal Result(bool isSuccess, Error? error = null, T? data = default) : base(isSuccess, error)
+    {
+        Data = data;
+    }
+    public T? Data { get; }
+    public static new Result<T> Success(T data) => new(true, null, data);
+    public static new Result<T> Failure(Error error) => new(false, error);
 }

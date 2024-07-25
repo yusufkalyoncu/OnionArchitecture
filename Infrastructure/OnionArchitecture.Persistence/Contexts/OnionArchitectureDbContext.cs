@@ -26,7 +26,7 @@ public class OnionArchitectureDbContext : DbContext
             switch (data.State)
             {
                 case EntityState.Added:
-                    data.Entity.SetCreatedDate();
+                    data.Entity.SetCreatedAt();
                     break;
                 case EntityState.Modified:
                     data.Entity.Update();

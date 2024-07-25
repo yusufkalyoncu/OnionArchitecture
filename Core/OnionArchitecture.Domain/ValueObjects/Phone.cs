@@ -11,17 +11,24 @@ public sealed class Phone : ValueObject
     {
         CountryCode = countryCode;
         Number = number;
-        Value = $"{countryCode}{number}";
     }
     public string CountryCode { get; }
     public string Number { get;}
-    public string Value { get;}
+
+    public string Value
+    {
+        get
+        {
+            return $"{CountryCode}{Number}";
+        }
+    }
+
     public override IEnumerable<object> GetAtomicValues()
     {
         yield return Value;
     }
 
-    public Result<Phone> Create(string countryCode, string number)
+    public static Result<Phone> Create(string countryCode, string number)
     {
         if (string.IsNullOrEmpty(countryCode))
         {

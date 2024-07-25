@@ -1,43 +1,83 @@
-using Microsoft.EntityFrameworkCore.Storage;
 using OnionArchitecture.Application.Abstractions.Repositories;
+using OnionArchitecture.Application.Abstractions.Repositories.RoleRepository;
+using OnionArchitecture.Application.Abstractions.Repositories.UserRepository;
 using OnionArchitecture.Persistence.Contexts;
+using OnionArchitecture.Persistence.Repositories.RoleRepository;
+using OnionArchitecture.Persistence.Repositories.UserRepository;
 
 namespace OnionArchitecture.Persistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
     private readonly OnionArchitectureDbContext _context;
-    private IDbContextTransaction? _transaction;
     
-    public UnitOfWork(OnionArchitectureDbContext context, IDbContextTransaction? transaction)
+    private IUserReadRepository? _userReadRepository;
+    private IUserWriteRepository? _userWriteRepository;
+
+    private IRoleReadRepository? _roleReadRepository;
+    private IRoleWriteRepository? _roleWriteRepository;
+    public UnitOfWork(OnionArchitectureDbContext context)
     {
         _context = context;
-        _transaction = transaction;
-    }
-    
-    public async Task<IDbContextTransaction> BeginTransactionAsync()
-    {
-        _transaction = await _context.Database.BeginTransactionAsync();
-        return _transaction;
     }
 
-    public async Task CommitAsync()
+    public async Task<int> CompleteAsync()
     {
-        if (_transaction != null)
+        return await _context.SaveChangesAsync();
+    }
+    
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
+    
+    public IUserReadRepository UserReadRepository
+    {
+        get
         {
-            await _transaction.CommitAsync();
-            await _transaction.DisposeAsync();
-            _transaction = null;
+            if (_userReadRepository is null)
+            {
+                _userReadRepository = new UserReadRepository(_context);
+            }
+            return _userReadRepository;
+        }
+    }
+
+    public IUserWriteRepository UserWriteRepository
+    {
+        get
+        {
+            if (_userWriteRepository is null)
+            {
+                _userWriteRepository = new UserWriteRepository(_context);
+            }
+            return _userWriteRepository;
+        }
+    }
+
+    public IRoleReadRepository RoleReadRepository
+    {
+        get
+        {
+            if (_roleReadRepository is null)
+            {
+                _roleReadRepository = new RoleReadRepository(_context);
+            }
+
+            return _roleReadRepository;
         }
     }
     
-    public async ValueTask DisposeAsync()
+    public IRoleWriteRepository RoleWriteRepository
     {
-        if (_transaction != null)
+        get
         {
-            await _transaction.RollbackAsync();
-            await _transaction.DisposeAsync();
+            if (_roleWriteRepository is null)
+            {
+                _roleWriteRepository = new RoleWriteRepository(_context);
+            }
+
+            return _roleWriteRepository;
         }
-        await _context.DisposeAsync();
     }
 }

@@ -14,7 +14,7 @@ public sealed class Email : ValueObject
         yield return Value;
     }
 
-    public Result<Email> Create(string value)
+    public static Result<Email> Create(string value)
     {
         if (string.IsNullOrEmpty(value))
         {

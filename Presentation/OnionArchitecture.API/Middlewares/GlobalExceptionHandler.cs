@@ -58,11 +58,11 @@ public class GlobalExceptionHandler
     {
         return exception.Status switch
         {
-            HttpStatusCode.BadRequest => Error.BadRequest(exception.Error),
-            HttpStatusCode.Unauthorized => Error.Unauthorized(exception.Error),
-            HttpStatusCode.NotFound => Error.NotFound(exception.Error),
-            HttpStatusCode.Conflict => Error.Conflict(exception.Error),
-            HttpStatusCode.InternalServerError => Error.Server(exception.Error),
+            HttpStatusCode.BadRequest => Error.BadRequest(exception.Message),
+            HttpStatusCode.Unauthorized => Error.Unauthorized(exception.Message),
+            HttpStatusCode.NotFound => Error.NotFound(exception.Message),
+            HttpStatusCode.Conflict => Error.Conflict(exception.Message),
+            HttpStatusCode.InternalServerError => Error.Server(exception.Message),
             _ => Error.Server(_unknownErrorMessage)
         };
     }

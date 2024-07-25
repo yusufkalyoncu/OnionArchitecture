@@ -21,7 +21,7 @@ public sealed class Name : ValueObject
         yield return Value;
     }
 
-    public Result<Name> Create(string firstName, string lastName)
+    public static Result<Name> Create(string firstName, string lastName)
     {
         if (string.IsNullOrEmpty(firstName))
         {

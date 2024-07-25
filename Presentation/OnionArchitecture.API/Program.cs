@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using OnionArchitecture.Application;
 using OnionArchitecture.Infrastructure;
 using OnionArchitecture.Persistence;
@@ -8,26 +9,76 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
-builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddOptions(builder.Configuration);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+Configure(app, app.Environment);
+
+app.Run();
+
+void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    //Application Services
+    services.AddApplication();
+    services.AddOptions(configuration);
+    
+    //Infrastructure Services
+    services.AddInfrastructure(configuration);
+    services.AddInfrastructureServices();
+    
+    //Persistence Services
+    services.AddPersistence(configuration);
+    services.AddRepositories();
+    services.AddPersistenceServices();
+    
+    services.AddEndpointsApiExplorer();
+    services.AddControllers();
+    services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "OnionArchitecture.API",
+            Version = "v1"
+        });
+    
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme (Example: 'Bearer 12345abcdef')",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+        {
+            new OpenApiSecurityScheme{
+                Reference = new OpenApiReference{
+                    Id = "Bearer",
+                    Type = ReferenceType.SecurityScheme
+                }
+            }, new List<string>()
+        }});
+    });
 }
 
-app.UseHttpsRedirection();
-app.UseRouting();
-app.UseMiddleware<GlobalExceptionHandler>();
-app.MapControllers();
-app.Run();
+void Configure(WebApplication app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseRouting();
+    app.UseMiddleware<GlobalExceptionHandler>();
+    app.MapControllers();
+    
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        services.AddSeeds();
+    }
+}
