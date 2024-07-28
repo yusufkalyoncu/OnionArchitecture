@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using OnionArchitecture.API.Middlewares;
 using OnionArchitecture.Application;
 using OnionArchitecture.Infrastructure;
 using OnionArchitecture.Persistence;
@@ -73,6 +74,7 @@ void Configure(WebApplication app, IWebHostEnvironment env)
 
     app.UseHttpsRedirection();
     app.UseRouting();
+    app.UseMiddleware<RequestLogContextMiddleware>();
     app.UseMiddleware<GlobalExceptionHandler>();
     app.MapControllers();
     

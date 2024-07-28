@@ -8,7 +8,7 @@ namespace OnionArchitecture.Application.Abstractions.Behaviors;
 internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse> 
     : IPipelineBehavior<TRequest,TResponse>
     where TRequest : class
-    where TResponse : Result<TResponse>
+    where TResponse : Result
 {
     private readonly ILogger<RequestLoggingPipelineBehavior<TRequest, TResponse>> _logger;
 
@@ -30,7 +30,7 @@ internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>
 
         if (result.IsSuccess)
         {
-            _logger.LogInformation($"Completed request {requestName}");
+            _logger.LogInformation($"Completed request {requestName} with successfully");
         }
         else
         {
