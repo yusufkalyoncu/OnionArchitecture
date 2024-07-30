@@ -5,6 +5,11 @@ namespace OnionArchitecture.Domain.ValueObjects;
 
 public sealed class Name : ValueObject
 {
+    public const byte FirstNameMinLength = 2;
+    public const byte FirstNameMaxLength = 30;
+    public const byte LastNameMinLength = 2;
+    public const byte LastNameMaxLength = 30;
+
     private Name(){}
     private Name(string firstName, string lastName)
     {
@@ -12,13 +17,13 @@ public sealed class Name : ValueObject
         LastName = lastName;
         Value = $"{firstName} {lastName}";
     }
-    public string FirstName { get; }
-    public string LastName { get; }
-    public string Value { get; }
+    public string? FirstName { get; }
+    public string? LastName { get; }
+    public string? Value { get; }
     
     public override IEnumerable<object> GetAtomicValues()
     {
-        yield return Value;
+        yield return Value!;
     }
 
     public static Result<Name> Create(string firstName, string lastName)
@@ -31,11 +36,11 @@ public sealed class Name : ValueObject
         {
             return Result<Name>.Failure(NameErrors.LastNameNullOrEmpty);
         }
-        if (firstName.Length < 2 || firstName.Length > 20)
+        if (firstName.Length < FirstNameMinLength || firstName.Length > FirstNameMaxLength)
         {
             return Result<Name>.Failure(NameErrors.FirstNameLengthError);
         }
-        if (lastName.Length < 2 || firstName.Length > 20)
+        if (lastName.Length < LastNameMinLength || lastName.Length > LastNameMaxLength)
         {
             return Result<Name>.Failure(NameErrors.LastNameLengthError);
         }

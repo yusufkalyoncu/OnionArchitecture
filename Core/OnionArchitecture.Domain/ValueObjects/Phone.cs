@@ -6,6 +6,10 @@ namespace OnionArchitecture.Domain.ValueObjects;
 
 public sealed class Phone : ValueObject
 {
+    public const string NotDigitPattern = @"\D";
+    public const string CountryCodePattern = @"^\d{1,3}$";
+    public const string NumberPattern = @"^\d{10,15}$";
+    
     private Phone(){}
     private Phone(string countryCode, string number)
     {
@@ -38,19 +42,15 @@ public sealed class Phone : ValueObject
         {
             return Result<Phone>.Failure(PhoneErrors.NumberNullOrEmpty);
         }
-        
-        string notDigitPattern = @"\D";
-        string countryCodePattern = @"^\d{1,3}$";
-        string numberPattern = @"^\d{10,15}$";
 
-        countryCode = Regex.Replace(countryCode, notDigitPattern, "");
-        number = Regex.Replace(number, notDigitPattern, "");
+        countryCode = Regex.Replace(countryCode, NotDigitPattern, "");
+        number = Regex.Replace(number, NotDigitPattern, "");
 
-        if (!Regex.IsMatch(countryCode, countryCodePattern))
+        if (!Regex.IsMatch(countryCode, CountryCodePattern))
         {
             return Result<Phone>.Failure(PhoneErrors.InvalidCountryCode);
         }
-        if (!Regex.IsMatch(number, numberPattern))
+        if (!Regex.IsMatch(number, NumberPattern))
         {
             return Result<Phone>.Failure(PhoneErrors.InvalidCountryCode);
         }

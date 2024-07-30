@@ -6,6 +6,8 @@ namespace OnionArchitecture.Domain.ValueObjects;
 
 public sealed class Email : ValueObject
 {
+    public const string RegexPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+    
     private Email(){}
     private Email(string value) => Value = value;
     public string Value { get;}
@@ -21,8 +23,7 @@ public sealed class Email : ValueObject
             return Result<Email>.Failure(EmailErrors.EmailNullOrEmpty);
         }
         
-        string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-        if (!Regex.IsMatch(value, pattern, RegexOptions.IgnoreCase))
+        if (!Regex.IsMatch(value, RegexPattern, RegexOptions.IgnoreCase))
         {
             return Result<Email>.Failure(EmailErrors.InvalidFormat);
         }
