@@ -15,4 +15,6 @@ public class UserErrors
     public static readonly Error NotFound = Error.NotFound("User not found");
     public static readonly Error WrongUsernameOrPassword =
         Error.Unauthorized("Login failed. Please check your username and password");
+
+    public static readonly Error SessionExpired = Error.Unauthorized("Session expired. Please login again.");
 }

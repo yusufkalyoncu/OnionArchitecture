@@ -8,6 +8,7 @@ using OnionArchitecture.Application.Abstractions.Services;
 using OnionArchitecture.Application.Options;
 using OnionArchitecture.Domain.Entities;
 using OnionArchitecture.Domain.Errors.Entity;
+using OnionArchitecture.Domain.Errors.Service;
 using OnionArchitecture.Domain.Shared;
 
 namespace OnionArchitecture.Infrastructure.Services;
@@ -60,6 +61,25 @@ public class TokenService : ITokenService
             rng.GetBytes(randomNumber);
             return Result<string>.Success(Convert.ToBase64String(randomNumber));
         }
+    }
+
+    public Result<string> GetUserIdFromJwtToken(string jwtToken)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        
+        var token = tokenHandler.ReadJwtToken(jwtToken);
+        if (token == null)
+        {
+            return Result<string>.Failure(TokenErrors.InvalidToken);
+        }
+        
+        var userIdClaim = token.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier);
+        if (userIdClaim == null)
+        {
+            return Result<string>.Failure(TokenErrors.UserIdClaimNotFound);
+        }
+        
+        return Result<string>.Success(userIdClaim.Value);
     }
 
     private List<Claim> GetClaims(User user)

@@ -132,4 +132,37 @@ public class UserService : IUserService
 
         return Result<TokenDto>.Success(new(accessTokenResult.Data!, user.RefreshToken));
     }
+
+    public async Task<Result<TokenDto>> RefreshToken(string accessToken, string refreshToken)
+    {
+        var userIdResult = _tokenService.GetUserIdFromJwtToken(accessToken);
+        if (userIdResult.IsFailure)
+        {
+            return Result<TokenDto>.Failure(userIdResult.Error!);
+        }
+
+        Guid.TryParse(userIdResult.Data!, out var userId);
+
+        var user = await _unitOfWork.UserReadRepository.GetByIdWithRolesAsync(userId);
+        if (user == null)
+        {
+            return Result<TokenDto>.Failure(UserErrors.NotFound);
+        }
+
+        if (user.RefreshToken != refreshToken ||
+            user.RefreshTokenExpireAt < DateTime.UtcNow)
+        {
+            return Result<TokenDto>.Failure(UserErrors.SessionExpired);
+        }
+
+        var accessTokenResult =  _tokenService.CreateAccessToken(user);
+        var refreshTokenResult = _tokenService.GenerateRefreshToken();
+        
+        user.UpdateRefreshToken(refreshTokenResult.Data!, _jwtOptions.RefreshTokenExpireTimeSecond);
+        user.UpdateLastLoginDate();
+        
+        await _unitOfWork.CompleteAsync();
+        
+        return Result<TokenDto>.Success(new(accessTokenResult.Data!, user.RefreshToken));
+    }
 }

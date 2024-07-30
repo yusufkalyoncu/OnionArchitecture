@@ -8,4 +8,5 @@ public interface IUserService
 {
     Task<Result<TokenDto>> RegisterAsync(UserRegisterRequest request);
     public Task<Result<TokenDto>> LoginAsync(string phoneOrEmail, string password);
+    public Task<Result<TokenDto>> RefreshToken(string accessToken, string refreshToken);
 }

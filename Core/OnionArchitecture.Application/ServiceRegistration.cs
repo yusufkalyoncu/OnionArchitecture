@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnionArchitecture.Application.Abstractions.Behaviors;
 using OnionArchitecture.Application.DTOs.Token;
+using OnionArchitecture.Application.Features.Auth.Commands.RefreshToken;
 using OnionArchitecture.Application.Features.Auth.Commands.UserLogin;
 using OnionArchitecture.Application.Features.Auth.Commands.UserRegister;
 using OnionArchitecture.Application.Options;
@@ -37,6 +38,7 @@ public static class ServiceRegistration
     {
         configuration.AddValidation<UserRegisterCommand, TokenDto>();
         configuration.AddValidation<UserLoginCommand, TokenDto>();
+        configuration.AddValidation<RefreshTokenCommand, TokenDto>();
     }
 
     private static MediatRServiceConfiguration AddValidation<TRequest, TResponse>(

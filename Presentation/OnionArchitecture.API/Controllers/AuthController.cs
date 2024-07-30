@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OnionArchitecture.Application.DTOs.Token;
+using OnionArchitecture.Application.Features.Auth.Commands.RefreshToken;
 using OnionArchitecture.Application.Features.Auth.Commands.UserLogin;
 using OnionArchitecture.Application.Features.Auth.Commands.UserRegister;
 using OnionArchitecture.Domain.Shared;
@@ -18,6 +19,13 @@ public class AuthController : ControllerBase
         _mediator = mediator;
     }
     
+    [HttpPost("login")]
+    public async Task<Result<TokenDto>> UserLogin(UserLoginCommand request)
+    {
+        var res = await _mediator.Send(request);
+        return res;
+    }
+    
     [HttpPost("register")]
     public async Task<Result<TokenDto>> UserRegister(UserRegisterCommand request)
     {
@@ -25,8 +33,8 @@ public class AuthController : ControllerBase
         return res;
     }
 
-    [HttpPost("login")]
-    public async Task<Result<TokenDto>> UserLogin(UserLoginCommand request)
+    [HttpPost("refresh-token")]
+    public async Task<Result<TokenDto>> RefreshToken(RefreshTokenCommand request)
     {
         var res = await _mediator.Send(request);
         return res;
