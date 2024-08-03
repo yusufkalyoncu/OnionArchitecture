@@ -19,12 +19,18 @@ public static class ServiceRegistration
 {
     public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddPostgreSqlDbContext(configuration);
+        services.AddRepositoryServices();
+        services.AddApplicationServices();
+    }
+    private static void AddPostgreSqlDbContext(this IServiceCollection services, IConfiguration configuration)
+    {
         var postgreOptions = configuration.GetSection(PostgreOptions.OptionKey).Get<PostgreOptions>()!;
         services.AddDbContext<OnionArchitectureDbContext>(
             options => options.UseNpgsql(postgreOptions?.ConnectionString));
     }
-
-    public static void AddRepositories(this IServiceCollection services)
+    
+    private static void AddRepositoryServices(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IUserReadRepository, UserReadRepository>();
@@ -32,7 +38,7 @@ public static class ServiceRegistration
         services.AddTransient<IRoleReadRepository, RoleReadRepository>();
         services.AddTransient<IRoleWriteRepository, RoleWriteRepository>();
     }
-
+    
     public static void AddSeeds(this IServiceProvider services)
     {
         try
@@ -45,8 +51,8 @@ public static class ServiceRegistration
             throw;
         }
     }
-
-    public static void AddPersistenceServices(this IServiceCollection services)
+    
+    private static void AddApplicationServices(this IServiceCollection services)
     {
         services.AddTransient<IUserService, UserService>();
     }

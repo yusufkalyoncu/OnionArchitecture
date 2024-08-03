@@ -21,17 +21,13 @@ app.Run();
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
     //Application Services
-    services.AddApplication();
-    services.AddOptions(configuration);
+    services.AddApplication(configuration);
     
     //Infrastructure Services
     services.AddInfrastructure(configuration);
-    services.AddInfrastructureServices();
     
     //Persistence Services
     services.AddPersistence(configuration);
-    services.AddRepositories();
-    services.AddPersistenceServices();
     
     services.AddEndpointsApiExplorer();
     services.AddControllers();

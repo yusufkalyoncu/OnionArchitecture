@@ -1,3 +1,4 @@
+using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -14,10 +15,18 @@ namespace OnionArchitecture.Application;
 
 public static class ServiceRegistration
 {
-    public static void AddApplication(this IServiceCollection services)
+    public static Assembly assembly { get; private set; }
+    public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        var assembly = typeof(ServiceRegistration).Assembly;
+        assembly = typeof(ServiceRegistration).Assembly;
         
+        services.AddValidatorsFromAssembly(assembly);
+        AddMediatR(services);
+        AddOptions(services, configuration);
+    }
+
+    private static void AddMediatR(this IServiceCollection services)
+    {
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(assembly);
@@ -25,10 +34,9 @@ public static class ServiceRegistration
             AddValidations(configuration);
 
         });
-        services.AddValidatorsFromAssembly(assembly);
     }
     
-    public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
+    private static void AddOptions(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<PostgreOptions>(configuration.GetSection(PostgreOptions.OptionKey));
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.OptionKey));
