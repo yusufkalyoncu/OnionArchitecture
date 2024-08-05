@@ -5,8 +5,8 @@ namespace Domain.UnitTests.ValueObjects;
 
 public class PhoneTests
 {
-    private const string _countryCode = "90";
-    private const string _phoneNumber = "5555555555";
+    private const string CountryCode = "90";
+    private const string PhoneNumber = "5555555555";
     
     [Fact]
     public void CreatePhoneValueObject_Should_ReturnError_WhenCountryCodeIsNull()
@@ -14,7 +14,7 @@ public class PhoneTests
         //Arrange
 
         //Act
-        var result = Phone.Create(null, _phoneNumber);
+        var result = Phone.Create(null, PhoneNumber);
         
         //Assert
         Assert.NotNull(result?.Error);
@@ -27,7 +27,7 @@ public class PhoneTests
         //Arrange
 
         //Act
-        var result = Phone.Create(_countryCode, null);
+        var result = Phone.Create(CountryCode, null);
         
         //Assert
         Assert.NotNull(result?.Error);
@@ -40,7 +40,7 @@ public class PhoneTests
         //Arrange
         string number = "55555";
         //Act
-        var result = Phone.Create(_countryCode, number);
+        var result = Phone.Create(CountryCode, number);
         
         //Assert
         Assert.NotNull(result?.Error);
@@ -53,7 +53,7 @@ public class PhoneTests
         //Arrange
         string countryCode = "9";
         //Act
-        var result = Phone.Create(countryCode, _phoneNumber);
+        var result = Phone.Create(countryCode, PhoneNumber);
         
         //Assert
         Assert.NotNull(result?.Error);
@@ -66,7 +66,7 @@ public class PhoneTests
         //Arrange
         string phoneNumber = "4555555555";
         //Act
-        var result = Phone.Create(_countryCode, phoneNumber);
+        var result = Phone.Create(CountryCode, phoneNumber);
         
         //Assert
         Assert.NotNull(result?.Error);
@@ -79,13 +79,13 @@ public class PhoneTests
         //Arrange
         
         //Act
-        var result = Phone.Create(_countryCode, _phoneNumber);
+        var result = Phone.Create(CountryCode, PhoneNumber);
         
         //Assert
         Assert.NotNull(result);
         Assert.Null(result.Error);
         Assert.NotNull(result.Data);
-        Assert.Equal(_countryCode, result.Data.CountryCode);
-        Assert.Equal(_phoneNumber, result.Data.Number);
+        Assert.Equal(CountryCode, result.Data.CountryCode);
+        Assert.Equal(PhoneNumber, result.Data.Number);
     }
 }
