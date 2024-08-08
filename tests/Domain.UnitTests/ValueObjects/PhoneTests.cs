@@ -18,20 +18,22 @@ public class PhoneTests
         
         //Assert
         Assert.NotNull(result?.Error);
-        Assert.Equal(result?.Error?.Message, PhoneErrors.CountryCodeNullOrEmpty.Message);
+        Assert.Equal(PhoneErrors.CountryCodeNullOrEmpty,result.Error);
     }
     
-    [Fact]
-    public void CreatePhoneValueObject_Should_ReturnError_WhenNumberIsNull()
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    public void CreatePhoneValueObject_Should_ReturnError_WhenNumberIsNullOrEmpty(string? number)
     {
         //Arrange
 
         //Act
-        var result = Phone.Create(CountryCode, null);
+        var result = Phone.Create(CountryCode, number);
         
         //Assert
         Assert.NotNull(result?.Error);
-        Assert.Equal(result?.Error?.Message, PhoneErrors.NumberNullOrEmpty.Message);
+        Assert.Equal(PhoneErrors.NumberNullOrEmpty, result.Error);
     }
     
     [Fact]
@@ -44,7 +46,7 @@ public class PhoneTests
         
         //Assert
         Assert.NotNull(result?.Error);
-        Assert.Equal(result?.Error?.Message, PhoneErrors.InvalidNumber.Message);
+        Assert.Equal(PhoneErrors.InvalidNumber, result.Error);
     }
     
     [Fact]
@@ -57,7 +59,7 @@ public class PhoneTests
         
         //Assert
         Assert.NotNull(result?.Error);
-        Assert.Equal(result?.Error?.Message, PhoneErrors.InvalidCountryCode.Message);
+        Assert.Equal(PhoneErrors.InvalidCountryCode, result.Error);
     }
     
     [Fact]
@@ -70,7 +72,7 @@ public class PhoneTests
         
         //Assert
         Assert.NotNull(result?.Error);
-        Assert.Equal(result?.Error?.Message, PhoneErrors.ShouldBeStartsFive.Message);
+        Assert.Equal(PhoneErrors.ShouldBeStartsFive, result.Error);
     }
     
     [Fact]

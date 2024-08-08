@@ -53,7 +53,7 @@ public sealed class Phone : ValueObject
         }
         if (!Regex.IsMatch(number, NumberPattern))
         {
-            return Result<Phone>.Failure(PhoneErrors.InvalidCountryCode);
+            return Result<Phone>.Failure(PhoneErrors.InvalidNumber);
         }
 
         if (!Regex.IsMatch(number, NumberStartsWith5Pattern))
