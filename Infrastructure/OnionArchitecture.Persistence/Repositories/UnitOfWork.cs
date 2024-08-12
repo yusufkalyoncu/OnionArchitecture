@@ -1,24 +1,28 @@
-using OnionArchitecture.Application.Abstractions.Repositories;
-using OnionArchitecture.Application.Abstractions.Repositories.RoleRepository;
 using OnionArchitecture.Application.Abstractions.Repositories.UserRepository;
 using OnionArchitecture.Persistence.Contexts;
-using OnionArchitecture.Persistence.Repositories.RoleRepository;
 using OnionArchitecture.Persistence.Repositories.UserRepository;
+using Microsoft.Extensions.Caching.Memory;
+using OnionArchitecture.Application.Abstractions.Repositories;
+using OnionArchitecture.Application.Abstractions.Repositories.RoleRepository;
+using OnionArchitecture.Persistence.Repositories.RoleRepository;
 
 namespace OnionArchitecture.Persistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
     private readonly OnionArchitectureDbContext _context;
+    private readonly IMemoryCache _memoryCache;
     
     private IUserReadRepository? _userReadRepository;
     private IUserWriteRepository? _userWriteRepository;
 
     private IRoleReadRepository? _roleReadRepository;
     private IRoleWriteRepository? _roleWriteRepository;
-    public UnitOfWork(OnionArchitectureDbContext context)
+    
+    public UnitOfWork(OnionArchitectureDbContext context, IMemoryCache memoryCache)
     {
         _context = context;
+        _memoryCache = memoryCache;
     }
 
     public async Task<int> CompleteAsync()
@@ -37,7 +41,9 @@ public class UnitOfWork : IUnitOfWork
         {
             if (_userReadRepository is null)
             {
-                _userReadRepository = new UserReadRepository(_context);
+                // Burada CachedUserReadRepository'yi kullanıyoruz
+                var userReadRepository = new UserReadRepository(_context);
+                _userReadRepository = new CachedUserReadRepository(userReadRepository, _memoryCache);
             }
             return _userReadRepository;
         }

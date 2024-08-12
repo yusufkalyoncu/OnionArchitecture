@@ -17,7 +17,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : Entity
 
     public DbSet<T> Table => _dbContext.Set<T>();
     
-    public IQueryable<T> GetAll(bool tracking = true)
+    public IQueryable<T>? GetAll(bool tracking = true)
     {
         var query = Table.Where(x => !x.IsDeleted).AsQueryable();
         if (!tracking)

@@ -28,7 +28,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     
     //Persistence Services
     services.AddPersistence(configuration);
-    
+
+    services.AddMemoryCache();
     services.AddEndpointsApiExplorer();
     services.AddControllers();
     services.AddSwaggerGen(c =>

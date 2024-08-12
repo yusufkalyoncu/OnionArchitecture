@@ -33,9 +33,13 @@ public static class ServiceRegistration
     private static void AddRepositoryServices(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddTransient<IUserReadRepository, UserReadRepository>();
+        
+        services.AddTransient<UserReadRepository>();
+        services.AddTransient<IUserReadRepository, CachedUserReadRepository>();
         services.AddTransient<IUserWriteRepository, UserWriteRepository>();
-        services.AddTransient<IRoleReadRepository, RoleReadRepository>();
+        
+        services.AddTransient<RoleReadRepository>();
+        services.AddTransient<IRoleReadRepository, CachedRoleReadRepository>();
         services.AddTransient<IRoleWriteRepository, RoleWriteRepository>();
     }
     
