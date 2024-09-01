@@ -4,7 +4,7 @@ namespace OnionArchitecture.Domain.Shared;
 
 public class Result
 {
-    protected internal Result(bool isSuccess, Error? error = null)
+    protected Result(bool isSuccess, Error? error = null)
     {
         if (isSuccess && error != null)
         {
@@ -29,11 +29,11 @@ public class Result
 
 public class Result<T> : Result
 {
-    protected internal Result(bool isSuccess, Error? error = null, T? data = default) : base(isSuccess, error)
+    private Result(bool isSuccess, Error? error = null, T? data = default) : base(isSuccess, error)
     {
         Data = data;
     }
     public T? Data { get; }
-    public static new Result<T> Success(T data) => new(true, null, data);
-    public static new Result<T> Failure(Error error) => new(false, error);
+    public static Result<T> Success(T data) => new(true, null, data);
+    public new static Result<T> Failure(Error error) => new(false, error);
 }

@@ -4,14 +4,14 @@ namespace OnionArchitecture.Domain.Shared;
 
 public sealed class Error
 {
-    public int Status { get; private set; }
+    public int StatusCode { get; private set; }
     public string Title { get; private set; }
     public string Message { get; private set; }
     public string? Code { get; private set; }
 
-    private Error(int status, string title, string message, string? code)
+    private Error(int statusCode, string title, string message, string? code)
     {
-        Status = status;
+        StatusCode = statusCode;
         Title = title;
         Message = message;
         Code = code;

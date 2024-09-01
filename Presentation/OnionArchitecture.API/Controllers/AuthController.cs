@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OnionArchitecture.API.Extensions;
 using OnionArchitecture.Application.DTOs.Token;
 using OnionArchitecture.Application.Features.Auth.Commands.RefreshToken;
 using OnionArchitecture.Application.Features.Auth.Commands.UserLogin;
@@ -20,23 +21,32 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("login")]
-    public async Task<Result<TokenDto>> UserLogin(UserLoginCommand request)
+    [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> UserLogin(UserLoginCommand request)
     {
         var res = await _mediator.Send(request);
-        return res;
+        return res.ToActionResult();
     }
     
     [HttpPost("register")]
-    public async Task<Result<TokenDto>> UserRegister(UserRegisterCommand request)
+    [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> UserRegister(UserRegisterCommand request)
     {
         var res = await _mediator.Send(request);
-        return res;
+        return res.ToActionResult();
     }
 
     [HttpPost("refresh-token")]
-    public async Task<Result<TokenDto>> RefreshToken(RefreshTokenCommand request)
+    [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> RefreshToken(RefreshTokenCommand request)
     {
         var res = await _mediator.Send(request);
-        return res;
+        return res.ToActionResult();
     }
 }
