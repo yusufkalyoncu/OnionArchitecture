@@ -18,7 +18,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse> : IPipelineBehavior
         RequestHandlerDelegate<Result<TResponse>> next,
         CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(request);
+        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
         {
             return Result<TResponse>.Failure(Error.Validation(validationResult.Errors.First().ErrorMessage));

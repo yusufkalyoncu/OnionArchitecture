@@ -2,11 +2,13 @@ using System.Net;
 using System.Text.Json;
 using OnionArchitecture.Domain.Shared;
 
+namespace OnionArchitecture.API.Middlewares;
+
 public class GlobalExceptionHandler
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<GlobalExceptionHandler> _logger;
-    private readonly string _unknownErrorMessage = "An unexpected error occurred";
+    private const string UnknownErrorMessage = "An unexpected error occurred";
 
     public GlobalExceptionHandler(RequestDelegate next, ILogger<GlobalExceptionHandler> logger)
     {
@@ -44,14 +46,14 @@ public class GlobalExceptionHandler
         }
         else
         {
-            error = Error.Server(_unknownErrorMessage);
+            error = Error.Server(UnknownErrorMessage);
         }
 
-        var result = Result<object>.Failure(error);
+        var result = Result.Failure(error);
 
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = 200;
-        await context.Response.WriteAsync(JsonSerializer.Serialize(result, options));
+        context.Response.StatusCode = error.StatusCode;
+        await context.Response.WriteAsync(JsonSerializer.Serialize(result.Error, options));
     }
 
     private Error GetError(BaseException exception)
@@ -63,7 +65,7 @@ public class GlobalExceptionHandler
             HttpStatusCode.NotFound => Error.NotFound(exception.Message),
             HttpStatusCode.Conflict => Error.Conflict(exception.Message),
             HttpStatusCode.InternalServerError => Error.Server(exception.Message),
-            _ => Error.Server(_unknownErrorMessage)
+            _ => Error.Server(UnknownErrorMessage)
         };
     }
 }
