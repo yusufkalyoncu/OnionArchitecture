@@ -1,4 +1,14 @@
+<div align="center">
+<img src="https://marcroussy.com/wp-content/uploads/2018/03/onion-architecture.png" width="192" height="192" />
+
 # Onion Architecture Base Project
+
+![React.js](https://img.shields.io/badge/C%23-.NET-61DAFB?logo=dotnet)
+![GitHub Repo stars](https://img.shields.io/github/stars/yusufkalyoncu/OnionArchitecture?style=flat)
+![GitHub Issues](https://img.shields.io/github/issues/yusufkalyoncu/OnionArchitecture)
+![GitHub Pull Requests](https://img.shields.io/github/issues-pr/yusufkalyoncu/OnionArchitecture)
+![GitHub License](https://img.shields.io/github/license/yusufkalyoncu/OnionArchitecture)
+</div>
 
 This project is a foundational implementation of the Onion Architecture pattern, designed to serve as a base for building scalable, maintainable, and testable .NET applications. The architecture ensures a clear separation of concerns and adheres to SOLID principles, making it a robust starting point for any enterprise-level application.
 
