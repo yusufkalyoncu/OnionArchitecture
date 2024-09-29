@@ -1,6 +1,4 @@
-using System.Net;
-
-namespace OnionArchitecture.Domain.Shared;
+namespace OnionArchitecture.Shared;
 
 public sealed class Error
 {

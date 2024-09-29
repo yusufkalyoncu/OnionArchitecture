@@ -1,4 +1,4 @@
-namespace OnionArchitecture.Domain.Shared;
+namespace OnionArchitecture.Shared;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {

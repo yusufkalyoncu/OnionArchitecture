@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OnionArchitecture.Domain.Shared;
+namespace OnionArchitecture.Shared;
 
 public class Result
 {

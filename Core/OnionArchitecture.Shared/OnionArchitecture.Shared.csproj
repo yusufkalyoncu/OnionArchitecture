@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\OnionArchitecture.Shared\OnionArchitecture.Shared.csproj" />
-    </ItemGroup>
-
 </Project>

@@ -1,7 +1,7 @@
 using MediatR;
 using OnionArchitecture.Application.Abstractions.Services;
 using OnionArchitecture.Application.DTOs.Token;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Application.Features.Auth.Commands.RefreshToken;
 

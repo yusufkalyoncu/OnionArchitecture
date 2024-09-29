@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Application.Abstractions.Repositories;
 

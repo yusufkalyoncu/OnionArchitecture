@@ -1,6 +1,6 @@
 using System.Net;
 using System.Text.Json;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.API.Middlewares;
 

@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 using Serilog.Context;
 
 namespace OnionArchitecture.Application.Abstractions.Behaviors;

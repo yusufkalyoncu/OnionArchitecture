@@ -5,7 +5,7 @@ using OnionArchitecture.Application.DTOs.Token;
 using OnionArchitecture.Application.Features.Auth.Commands.RefreshToken;
 using OnionArchitecture.Application.Features.Auth.Commands.UserLogin;
 using OnionArchitecture.Application.Features.Auth.Commands.UserRegister;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.API.Controllers;
 

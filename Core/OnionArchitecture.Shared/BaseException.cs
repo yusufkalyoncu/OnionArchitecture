@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace OnionArchitecture.Domain.Shared;
+namespace OnionArchitecture.Shared;
 
 public class BaseException : Exception
 {

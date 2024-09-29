@@ -9,7 +9,7 @@ using OnionArchitecture.Application.Features.Auth.Commands.RefreshToken;
 using OnionArchitecture.Application.Features.Auth.Commands.UserLogin;
 using OnionArchitecture.Application.Features.Auth.Commands.UserRegister;
 using OnionArchitecture.Application.Options;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Application;
 

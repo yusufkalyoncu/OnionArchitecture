@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using OnionArchitecture.Application.Abstractions.Repositories;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 using OnionArchitecture.Persistence.Contexts;
 
 namespace OnionArchitecture.Persistence.Repositories;

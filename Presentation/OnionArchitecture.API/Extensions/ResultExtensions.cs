@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.API.Extensions;
 

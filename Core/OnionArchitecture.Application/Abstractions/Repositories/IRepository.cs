@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Application.Abstractions.Repositories;
 

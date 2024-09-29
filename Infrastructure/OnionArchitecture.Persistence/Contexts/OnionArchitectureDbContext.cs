@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OnionArchitecture.Domain.Entities;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 using OnionArchitecture.Persistence.Configurations;
 
 namespace OnionArchitecture.Persistence.Contexts;

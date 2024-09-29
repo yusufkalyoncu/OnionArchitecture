@@ -1,4 +1,5 @@
-using OnionArchitecture.Domain.Shared;
+
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Domain.Errors.Entity;
 

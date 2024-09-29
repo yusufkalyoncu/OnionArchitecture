@@ -1,5 +1,5 @@
 using OnionArchitecture.Domain.Errors.Entity;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 using OnionArchitecture.Domain.ValueObjects;
 
 namespace OnionArchitecture.Domain.Entities;

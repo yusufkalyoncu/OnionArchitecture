@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using OnionArchitecture.Application.Abstractions.Repositories;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 using OnionArchitecture.Persistence.Contexts;
 
 namespace OnionArchitecture.Persistence.Repositories;

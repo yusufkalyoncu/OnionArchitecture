@@ -6,7 +6,7 @@ using OnionArchitecture.Application.DTOs.Token;
 using OnionArchitecture.Application.Options;
 using OnionArchitecture.Domain.Entities;
 using OnionArchitecture.Domain.Errors.Entity;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 using OnionArchitecture.Domain.ValueObjects;
 
 namespace OnionArchitecture.Persistence.Services;

@@ -9,7 +9,7 @@ using OnionArchitecture.Application.Options;
 using OnionArchitecture.Domain.Entities;
 using OnionArchitecture.Domain.Errors.Entity;
 using OnionArchitecture.Domain.Errors.Service;
-using OnionArchitecture.Domain.Shared;
+using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Infrastructure.Services;
 
