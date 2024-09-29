@@ -1,13 +1,17 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
 # Rider ignored files
 /projectSettingsUpdater.xml
 /.idea.OnionArchitecture.iml
 /modules.xml
 /contentModel.xml
+.idea/
+
 # Editor-based HTTP Client requests
 /httpRequests/
+
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
@@ -18,6 +22,10 @@
 x64/
 x86/
 [Aa][Nn][Yy][Cc][Pp][Uu]/
+bin/
+obj/
+out/
+packages/
 
 # User-specific files
 *.rsuser
@@ -25,13 +33,41 @@ x86/
 *.user
 *.userosscache
 *.sln.docstates
-.idea/
+
+# Visual Studio specific
+.vs/
+.vscode/
 
 # Auto-generated files
 *.cache
 *.csproj.nuget.dgspec.json
 *.csproj.AssemblyReference.cache
 *.AssemblyAttributes.cs
+*.restore.info
+*.nuget.info
+*.packagespec.json
+*.nuget.cache
+*.assets.json
+*.g.cs
+*.editorconfig
+*.props
+*.dgspec.json
+*.g.targets
+*.AssemblyInfo.cs
+*.AssemblyAttributes.cs
+*.UnitTests
 
 # Test Results
 TestResults/
+
+# Logs
+*.log
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
