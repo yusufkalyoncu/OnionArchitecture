@@ -1,0 +1,37 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/.idea.OnionArchitecture.iml
+/modules.xml
+/contentModel.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Nn][Yy][Cc][Pp][Uu]/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.idea/
+
+# Auto-generated files
+*.cache
+*.csproj.nuget.dgspec.json
+*.csproj.AssemblyReference.cache
+*.AssemblyAttributes.cs
+
+# Test Results
+TestResults/
