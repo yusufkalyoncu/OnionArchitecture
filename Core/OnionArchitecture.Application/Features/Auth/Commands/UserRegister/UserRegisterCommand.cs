@@ -1,4 +1,4 @@
-using MediatR;
+using OnionArchitecture.Application.Abstractions.Messaging;
 using OnionArchitecture.Application.Abstractions.Services;
 using OnionArchitecture.Application.DTOs.Auth.Requests;
 using OnionArchitecture.Application.DTOs.Token;
@@ -6,26 +6,18 @@ using OnionArchitecture.Shared;
 
 namespace OnionArchitecture.Application.Features.Auth.Commands.UserRegister;
 
-public class UserRegisterCommand : IRequest<Result<TokenDto>>
+public sealed record UserRegisterCommand(
+    string FirstName,
+    string LastName,
+    string Email,
+    string CountryCode,
+    string Phone,
+    string Password,
+    string PasswordConfirm) : ICommand<TokenDto>;
+
+public sealed class UserRegisterCommandHandler(IUserService userService) 
+    : ICommandHandler<UserRegisterCommand, TokenDto>
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
-    public string CountryCode { get; set; }
-    public string Phone { get; set; }
-    public string Password { get; set; }
-    public string PasswordConfirm { get; set; }
-}
-
-public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, Result<TokenDto>>
-{
-    private readonly IUserService _userService;
-
-    public UserRegisterCommandHandler(IUserService userService)
-    {
-        _userService = userService;
-    }
-
     public async Task<Result<TokenDto>> Handle(UserRegisterCommand request, CancellationToken cancellationToken)
     {
         var userRegisterRequest = new UserRegisterRequest(
@@ -37,7 +29,7 @@ public class UserRegisterCommandHandler : IRequestHandler<UserRegisterCommand, R
             request.Password,
             request.PasswordConfirm);
         
-        var tokenResult = await _userService.RegisterAsync(userRegisterRequest);
+        var tokenResult = await userService.RegisterAsync(userRegisterRequest);
         if (tokenResult.IsFailure)
         {
             return Result<TokenDto>.Failure(tokenResult.Error!);
