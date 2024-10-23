@@ -43,10 +43,11 @@ public sealed class User : Entity
             return Result<User>.Failure(UserErrors.PasswordNullOrEmpty);
         }
 
-        if (password.Length < PasswordMinLength || password.Length > PasswordMaxLength)
-        {
-            return Result<User>.Failure(UserErrors.PasswordInvalidLength);
-        }
+        //Password value comes encrypted, it does not comply with the length restrictions. Always returns PasswordInvalidLength error    
+        //if (password.Length < PasswordMinLength || password.Length > PasswordMaxLength)
+        //{
+        //    return Result<User>.Failure(UserErrors.PasswordInvalidLength);
+        //}
         
         return Result<User>.Success(new(name, email, phone, password));
     }
