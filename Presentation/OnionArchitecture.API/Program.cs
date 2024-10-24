@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using OnionArchitecture.API.Middlewares;
 using OnionArchitecture.Application;
 using OnionArchitecture.Infrastructure;
 using OnionArchitecture.Persistence;
+using OnionArchitecture.Shared;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,10 +30,29 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     
     //Persistence Services
     services.AddPersistence(configuration);
+    
+    services.Configure<ApiBehaviorOptions>(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var firstError = context.ModelState
+                .Where(e => e.Value.Errors.Count > 0)
+                .SelectMany(kvp => kvp.Value.Errors)
+                .Select(e => e.ErrorMessage)
+                .FirstOrDefault();
+            var errorResponse = Error.Validation(firstError ?? "Unknown validation error");
+            return new BadRequestObjectResult(errorResponse);
+        };
+    });
 
     services.AddMemoryCache();
     services.AddEndpointsApiExplorer();
-    services.AddControllers();
+    services.AddControllers(options =>
+    {
+        options.Filters.Add(new ProducesResponseTypeAttribute(typeof(Error), StatusCodes.Status400BadRequest));
+        options.Filters.Add(new ProducesResponseTypeAttribute(typeof(Error), StatusCodes.Status401Unauthorized));
+    });
     services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo

@@ -22,8 +22,6 @@ public class AuthController : ControllerBase
     
     [HttpPost("login")]
     [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> UserLogin(UserLoginCommand request)
     {
         var res = await _mediator.Send(request);
@@ -32,8 +30,6 @@ public class AuthController : ControllerBase
     
     [HttpPost("register")]
     [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> UserRegister(UserRegisterCommand request)
     {
         var res = await _mediator.Send(request);
@@ -42,8 +38,6 @@ public class AuthController : ControllerBase
 
     [HttpPost("refresh-token")]
     [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(Error), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> RefreshToken(RefreshTokenCommand request)
     {
         var res = await _mediator.Send(request);
