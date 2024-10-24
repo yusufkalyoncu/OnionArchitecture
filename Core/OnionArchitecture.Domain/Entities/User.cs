@@ -36,19 +36,20 @@ public sealed class User : Entity
         Name name,
         Email email,
         Phone phone,
-        string password)
+        string plainTextPassword,
+        string hashedPassword)
     {
-        if (string.IsNullOrEmpty(password))
+        if (string.IsNullOrEmpty(plainTextPassword) || string.IsNullOrEmpty(hashedPassword))
         {
             return Result<User>.Failure(UserErrors.PasswordNullOrEmpty);
         }
 
-        if (password.Length < PasswordMinLength || password.Length > PasswordMaxLength)
+        if (plainTextPassword.Length < PasswordMinLength || plainTextPassword.Length > PasswordMaxLength)
         {
             return Result<User>.Failure(UserErrors.PasswordInvalidLength);
         }
         
-        return Result<User>.Success(new(name, email, phone, password));
+        return Result<User>.Success(new(name, email, phone, hashedPassword));
     }
 
     public void UpdateLastLoginDate()

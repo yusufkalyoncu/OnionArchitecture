@@ -75,6 +75,7 @@ public class UserService : IUserService
             nameResult.Data!,
             emailResult.Data!,
             phoneResult.Data!,
+            request.Password,
             _passwordHasher.Hash(request.Password));
 
         if (userResult.IsFailure)

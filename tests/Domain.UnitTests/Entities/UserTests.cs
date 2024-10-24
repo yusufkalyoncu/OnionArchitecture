@@ -26,7 +26,7 @@ public class UserTests
         //Arrange
         
         //Act
-        var userResult = User.Create(ValidName, ValidEmail, ValidPhone, password);
+        var userResult = User.Create(ValidName, ValidEmail, ValidPhone, password, password);
         //Assert
         Assert.NotNull(userResult?.Error);
         Assert.Equal(UserErrors.PasswordNullOrEmpty, userResult?.Error);
@@ -40,7 +40,7 @@ public class UserTests
         //Arrange
         
         //Act
-        var userResult = User.Create(ValidName, ValidEmail, ValidPhone, password);
+        var userResult = User.Create(ValidName, ValidEmail, ValidPhone, password, password);
         //Assert
         Assert.NotNull(userResult?.Error);
         Assert.Equal(UserErrors.PasswordInvalidLength, userResult?.Error);
@@ -52,7 +52,7 @@ public class UserTests
         //Arrange
         
         //Act
-        var userResult = User.Create(ValidName, ValidEmail, ValidPhone, ValidPassword);
+        var userResult = User.Create(ValidName, ValidEmail, ValidPhone, ValidPassword, ValidPassword);
         //Assert
         Assert.NotNull(userResult);
         Assert.Null(userResult.Error);
