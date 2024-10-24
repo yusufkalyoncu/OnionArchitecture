@@ -15,6 +15,7 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0-preview.4.24266.19" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0-preview.4.24266.19" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0-preview.4.24266.19" />
+      <PackageReference Include="Quartz.Extensions.Hosting" Version="3.13.0" />
     </ItemGroup>
 
 </Project>

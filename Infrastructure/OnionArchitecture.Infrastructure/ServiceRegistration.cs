@@ -5,7 +5,10 @@ using OnionArchitecture.Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using OnionArchitecture.Application.Abstractions.Services;
+using OnionArchitecture.Infrastructure.Extensions;
+using OnionArchitecture.Infrastructure.Jobs;
 using OnionArchitecture.Infrastructure.Services;
+using Quartz;
 
 namespace OnionArchitecture.Infrastructure;
 
@@ -15,6 +18,7 @@ public static class ServiceRegistration
     {
         services.AddJwtAuthentication(configuration);
         services.AddApplicationServices();
+        services.UseCronJobs(configuration);
     }
     
     private static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
@@ -49,5 +53,18 @@ public static class ServiceRegistration
     {
         services.AddTransient<IPasswordHasher, PasswordHasher>();
         services.AddTransient<ITokenService, TokenService>();
+    }
+    
+    private static void UseCronJobs(this IServiceCollection services, IConfiguration configuration)
+    {
+        var cronExpressionOptions = configuration
+            .GetSection(CronExpressionOptions.OptionKey)
+            .Get<CronExpressionOptions>()!;
+        
+        services.AddQuartz(q =>
+        {
+            q.AddCronJob<ExampleJob>(nameof(ExampleJob), cronExpressionOptions.ExampleJob);
+        });
+        services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
     }
 }
