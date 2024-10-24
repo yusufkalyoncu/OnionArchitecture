@@ -71,6 +71,8 @@ void Configure(WebApplication app, IWebHostEnvironment env)
 
     app.UseHttpsRedirection();
     app.UseRouting();
+    app.UseAuthentication();
+    app.UseAuthorization();
     app.UseMiddleware<RequestLogContextMiddleware>();
     app.UseMiddleware<GlobalExceptionHandler>();
     app.MapControllers();
