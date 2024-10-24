@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using OnionArchitecture.Application.Abstractions.Repositories;
+using OnionArchitecture.Application.Exceptions;
 using OnionArchitecture.Shared;
 using OnionArchitecture.Persistence.Contexts;
 
@@ -41,11 +42,16 @@ public class ReadRepository<T> : IReadRepository<T> where T : Entity
         return await query.FirstOrDefaultAsync(method);
     }
 
-    public async Task<T?> GetByIdAsync(Guid id, bool tracking = true)
+    public async Task<T?> GetByIdAsync(string id, bool tracking = true)
     {
+        if (!Guid.TryParse(id, out Guid guid))
+        {
+            throw new InvalidGuidFormatException(id);
+        }
+        
         var query = Table.AsQueryable();
         if (!tracking)
             query = Table.AsNoTracking();
-        return await query.FirstOrDefaultAsync(data => data.Id == id);
+        return await query.FirstOrDefaultAsync(data => data.Id == guid);
     }
 }

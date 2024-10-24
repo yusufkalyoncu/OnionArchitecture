@@ -44,7 +44,7 @@ public class CachedUserReadRepository : IUserReadRepository
         return await _decorated.GetSingleAsync(method, tracking);
     }
 
-    public async Task<User?> GetByIdAsync(Guid id, bool tracking = true)
+    public async Task<User?> GetByIdAsync(string id, bool tracking = true)
     {
         string key = $"user-get-by-id-{id.ToString()}";
 

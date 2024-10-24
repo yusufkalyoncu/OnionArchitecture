@@ -44,7 +44,7 @@ public class CachedRoleReadRepository : IRoleReadRepository
         return await _decorated.GetSingleAsync(method, tracking);
     }
 
-    public async Task<Role?> GetByIdAsync(Guid id, bool tracking = true)
+    public async Task<Role?> GetByIdAsync(string id, bool tracking = true)
     {
         string key = $"role-get-by-id-{id}";
 
